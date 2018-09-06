@@ -1,0 +1,11 @@
+package com.learn;
+
+import javax.servlet.http.HttpServlet;
+
+/**
+ * Servlet implementation class RequestServlet
+ */
+public class RequestServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+}
