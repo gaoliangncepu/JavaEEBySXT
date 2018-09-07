@@ -9,7 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 解析客户端请求数据中的信息
+ * 解析客户端请求信息
+ * 1.获取请求行的信息
+ * 	getMethod()——获取请求方式
+ * 	getSchema()——获取协议（http、https、ftp）
+ * 	getProtocol()——获取协议版本
+ * 	getRequestURL()——获取URL
+ * 	getRequestURI()——获取URI
+ * 2.获取请求头的信息（不存在查询的key时，不会报错，返回null）
+ * 	getHeader("key_name")
+ * 	getHeaderNames()
+ * 3.获取请求体的信息（不存在查询的key时，不会报错，返回null）
+ * 	getParameter("key_name")
+ * 	getParameterNames()
  */
 public class RequestServlet extends HttpServlet {
 	@Override
@@ -39,6 +51,13 @@ public class RequestServlet extends HttpServlet {
 			String name = (String) keys.nextElement();
 			System.out.println(name + ":" + req.getParameter(name));
 
+		}
+		// 相同的键对应多个取值时
+		String[] favourites = req.getParameterValues("like");// 不存在键值时不会报错，返回null，因此下文操作必须判断是否为null
+		if (null != favourites) {
+			for (String string : favourites) {
+				System.out.println(string);
+			}
 		}
 	}
 }

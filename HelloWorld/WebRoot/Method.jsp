@@ -23,10 +23,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    	<form action="req" method="post">
+    	<form action="resp" method="get">
     		账号：<input type="text" name="uname" value=""><br />
     		密码：<input type="text" name="pwd" value=""><br />
-    		<input type="submit" value="登录">
+    		<input type="submit" value="登录"><br />
+    		爱好：<br />
+    		<input type="checkbox" name="like" value="1">游泳<br />
+    		<input type="checkbox" name="like" value="3">足球<br />
+    		<input type="checkbox" name="like" value="2">篮球<br />
     	</form>
   </body>
 </html>
