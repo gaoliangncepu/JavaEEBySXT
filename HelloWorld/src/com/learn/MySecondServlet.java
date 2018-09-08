@@ -13,38 +13,38 @@ import javax.servlet.http.HttpServletResponse;
 public class MySecondServlet extends HttpServlet {
 
 	/*
-	 * servlet ³õÊ¼»¯·½·¨(non-Javadoc)
+	 * servlet åˆå§‹åŒ–æ–¹æ³•(non-Javadoc)
 	 * 
 	 * @see javax.servlet.GenericServlet#init()
 	 */
 	@Override
 	public void init() throws ServletException {
-		System.out.println("Servlet ³õÊ¼»¯");
+		System.out.println("Servlet åˆå§‹åŒ–");
 	}
 
 	/*
-	 * Servlet ºËĞÄ·şÎñ·½·¨(non-Javadoc)
+	 * Servlet æ ¸å¿ƒæœåŠ¡æ–¹æ³•(non-Javadoc)
 	 * 
 	 * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.
 	 * HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// ·µ»ØĞÅÏ¢ÖÁä¯ÀÀÆ÷
+		// è¿”å›ä¿¡æ¯è‡³æµè§ˆå™¨
 		resp.getWriter().write("My second servlet");
 
-		// ·µ»ØĞÅÏ¢ÖÁ·şÎñÆ÷ºóÌ¨½çÃæ
+		// è¿”å›ä¿¡æ¯è‡³æœåŠ¡å™¨åå°ç•Œé¢
 		System.out.println("This is my second servlet");
 	}
 
 	/*
-	 * Servlet Ïú»Ù·½·¨(non-Javadoc)
+	 * Servlet é”€æ¯æ–¹æ³•(non-Javadoc)
 	 * 
 	 * @see javax.servlet.GenericServlet#destroy()
 	 */
 	@Override
 	public void destroy() {
-		System.out.println("Servlet Ïú»Ù");
+		System.out.println("Servlet é”€æ¯");
 	}
 
 }
