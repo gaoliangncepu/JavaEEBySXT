@@ -1,6 +1,8 @@
 package com.learn.dao.impl;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,8 +10,6 @@ import java.util.List;
 
 import com.learn.dao.UserDao;
 import com.learn.pojo.User;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 public class UserDaoImpl implements UserDao {
 
@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
 			// 加载数据库驱动器
 			Class.forName("com.mysql.jdbc.Driver");
 			// 获取连接
-			conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "Gl556313");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "Gl556313");
 			String sql = new String("SELECT * FROM tb_user WHERE uname=? AND pwd = ?");
 			pStatement = (PreparedStatement) conn.prepareStatement(sql);
 			// 设置占位符参数

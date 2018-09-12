@@ -7,28 +7,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.learn.pojo.User;
 import com.learn.service.impl.CheckUserServiceImpl;
 
 /**
  * 登录业务处理及响应 Servlet 
- * 设置请求编码格式 
- * 设置响应编码格式
- * 获取请求数据信息 
- * 业务逻辑处理
- * 生成响应数据信息
- * 设置请求编码格式：
- *  ①.new String(req.getParameter("uname").getBytes("iso8859-1"), "utf-8");
- *  ②.post方式的请求：req.setCharacterEncoding("utf-8")
- *  ③.get方式的请求：req.setCharacterEncoding("utf-8") + Tomcat/server.xml：useBodyEncodingForURI = "true" 
- * 设置响应编码格式：
+ * 
+ * 一、Servlet响应流程：
+ * 	1.设置请求编码格式 
+ * 	2.设置响应编码格式
+ * 	3.获取请求数据信息 
+ * 	4.业务逻辑处理
+ * 	5.生成响应数据信息
+ * 		//直接输出响应
+ * 		//请求转发
+ * 		//重定向
+ * 二、设置请求编码格式：
+ *  1.new String(req.getParameter("uname").getBytes("iso8859-1"), "utf-8");
+ *  2.post方式的请求：req.setCharacterEncoding("utf-8")
+ *  3.get方式的请求：req.setCharacterEncoding("utf-8") + TOMCAT_HOME/cfg/server.xml：useBodyEncodingForURI = "true" 
+ * 三、设置响应编码格式：
+ * 	resp.setContentType("text/plain;charset=utf-8") 
+ * 	resp.setContentType("text/xml;charset=utf-8") 
  * 	resp.setContentType("text/html;charset=utf-8") 
- * 业务逻辑处理： 
+ * 四、业务逻辑处理： 
  * 	MVC基本原则 
- * 请求转发
+ * 五、请求转发
  * 	同一个请求需要多个Servlet处理时，从当前Servlet将请求传递至另一个Servlet；
- * 	req.getRequestDispather("目标Servlet的别名").forward(req, resp);
- * 	所有Servlet的请求数据都是同一个req，因此浏览器显示的请求URL不会变；
+ *  所有Servlet的请求数据都是同一个req，因此浏览器显示的请求URL不会变；
+ * 	req.getRequestDispather("目标Servlet的别名或URI").forward(req, resp);
  * 	请求转发后直接return即可。
+ * 六、req作用域
+ * 	解决Select之间，逻辑处理过程数据的传递。
+ * 	req.setAttribute(String name, String value);
+ * 七、重定向
+ * 	解决当前Servlet无法处理请求，需要将其转交给其他Servlet时；
+ * 	解决使用请求转发会造成表单重复提交的问题；
  */
 public class LoginServlet extends HttpServlet {
 	@Override
@@ -48,14 +62,23 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(pwd = req.getParameter("pwd"));
 
 		// 业务逻辑处理
-		boolean status = new CheckUserServiceImpl().checkUser(uname, pwd);
+		User user = new CheckUserServiceImpl().checkUser(uname, pwd);
 
 		// 生成响应数据信息
-		if (status) {
-			resp.getWriter().write("登录成功");
+		if (null != user) {
+//			resp.getWriter().write("登录成功")
+//			req.getRequestDispatcher("main").forward(req, resp);
+//			return;
+			
+			// 重定向
+			resp.sendRedirect("main");
+			return;
 		} else {
+			// request作用域（设置值）
+			req.setAttribute("loginState", false);
 			// 请求转发
-			req.getRequestDispatcher("Page").forward(req, resp);
+			req.getRequestDispatcher("page").forward(req, resp);
+			return;
 		}
 
 	}

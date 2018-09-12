@@ -9,12 +9,12 @@ import com.learn.service.CheckUserService;
 public class CheckUserServiceImpl implements CheckUserService {
 
 	@Override
-	public boolean checkUser(String name, String pwd) {
+	public User checkUser(String name, String pwd) {
 		List<User> users = new UserDaoImpl().checkUser(name, pwd);
 		if (null != users && users.size() > 0) {
-			return true;
+			return users.get(0);
 		} else {
-			return false;
+			return null;
 		}
 	}
 
