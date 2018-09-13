@@ -7,8 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+import com.learn.service.impl.LoginServiceImpl;
+=======
 import com.learn.pojo.User;
 import com.learn.service.impl.CheckUserServiceImpl;
+>>>>>>> 7855f92e285d962128c4ce3585e9bbfdc96665df
 
 /**
  * ç™»å½•ä¸šåŠ¡å¤„ç†åŠå“åº” Servlet 
@@ -57,6 +61,19 @@ public class LoginServlet extends HttpServlet {
 		// è®¾ç½®å“åº”ç¼–ç æ ¼å¼
 		resp.setContentType("text/html;charset=utf-8");
 
+<<<<<<< HEAD
+		// ´¦ÀíÓÃ»§ÇëÇó
+		String name = req.getParameter("uname");
+		String pwd = req.getParameter("pwd");
+
+		// ÒµÎñÂß¼­
+		boolean state = new LoginServiceImpl().checkLogin(name, pwd);
+		if (state) {
+			resp.getWriter().write("µÇÂ¼³É¹¦£¡");
+		} else {
+			resp.getWriter().write("µÇÂ¼Ê§°Ü£¡");
+		}
+=======
 		// è·å–ç”¨æˆ·è¯·æ±‚æ•°æ®ä¿¡æ¯
 		System.out.println(uname = req.getParameter("uname"));
 		System.out.println(pwd = req.getParameter("pwd"));
@@ -81,6 +98,7 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
+>>>>>>> 7855f92e285d962128c4ce3585e9bbfdc96665df
 	}
 
 }
