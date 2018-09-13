@@ -3,16 +3,13 @@ package com.learn.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
-import com.learn.service.impl.LoginServiceImpl;
-=======
 import com.learn.pojo.User;
 import com.learn.service.impl.CheckUserServiceImpl;
->>>>>>> 7855f92e285d962128c4ce3585e9bbfdc96665df
 
 /**
  * 登录业务处理及响应 Servlet 
@@ -47,6 +44,8 @@ import com.learn.service.impl.CheckUserServiceImpl;
  * 七、重定向
  * 	解决当前Servlet无法处理请求，需要将其转交给其他Servlet时；
  * 	解决使用请求转发会造成表单重复提交的问题；
+ * 八、Cookie
+ * 	使用重定向或用户发起的多次请求之间，请求数据需要传递或共享时；
  */
 public class LoginServlet extends HttpServlet {
 	@Override
@@ -61,19 +60,6 @@ public class LoginServlet extends HttpServlet {
 		// 设置响应编码格式
 		resp.setContentType("text/html;charset=utf-8");
 
-<<<<<<< HEAD
-		// �����û�����
-		String name = req.getParameter("uname");
-		String pwd = req.getParameter("pwd");
-
-		// ҵ���߼�
-		boolean state = new LoginServiceImpl().checkLogin(name, pwd);
-		if (state) {
-			resp.getWriter().write("��¼�ɹ���");
-		} else {
-			resp.getWriter().write("��¼ʧ�ܣ�");
-		}
-=======
 		// 获取用户请求数据信息
 		System.out.println(uname = req.getParameter("uname"));
 		System.out.println(pwd = req.getParameter("pwd"));
@@ -87,6 +73,12 @@ public class LoginServlet extends HttpServlet {
 //			req.getRequestDispatcher("main").forward(req, resp);
 //			return;
 			
+			// 使用Cookie存储用户首次成功登录时的信息，以实现定时免登陆
+			Cookie c = new Cookie("uid", user.getUid()+"");
+			c.setMaxAge(3*24*3600);
+			c.setPath("/LoginService/ck");
+			resp.addCookie(c);
+			
 			// 重定向
 			resp.sendRedirect("main");
 			return;
@@ -98,7 +90,6 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
->>>>>>> 7855f92e285d962128c4ce3585e9bbfdc96665df
 	}
 
 }

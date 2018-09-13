@@ -45,16 +45,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CookieServlet</servlet-name>
-    <url-pattern>/cookie</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>PageServlet</display-name>
-    <servlet-name>PageServlet</servlet-name>
-    <servlet-class>com.learn.servlet.PageServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PageServlet</servlet-name>
-    <url-pattern>/Page</url-pattern>
+    <url-pattern>/ck</url-pattern>
   </servlet-mapping>
 </web-app>

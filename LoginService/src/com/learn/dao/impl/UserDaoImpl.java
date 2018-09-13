@@ -1,81 +1,3 @@
-<<<<<<< HEAD
-package com.learn.dao.impl;
-
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import com.learn.dao.UserDao;
-import com.learn.pojo.User;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-
-public class UserDaoImpl implements UserDao {
-
-	@Override
-	public User checkLoginMsg(String name, String pwd) {
-		User user = null;
-		// JDBC ·ÃÎÊÊý¾Ý¿â
-		// µ¼°ü
-		// ³õÊ¼»¯Á¬½Ó²ÎÊý
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			// ½¨Á¢Á¬½Ó
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "");
-			// Æ´½ÓSQL
-			String sql = "select * from tb_user where name = ? and pwd = ?";
-			// ´´½¨preparedStatement
-			preparedStatement = (PreparedStatement) conn.prepareStatement(sql);
-			// Ìî³äÕ¼Î»·û
-			preparedStatement.setString(1, name);
-			preparedStatement.setString(2, pwd);
-			// »ñÈ¡²éÑ¯½á¹û¼¯
-			resultSet = preparedStatement.executeQuery();
-
-			if (null != resultSet) {
-				while (resultSet.next()) {
-					user = new User();
-					user.setName(resultSet.getString(1));
-					user.setPwd(resultSet.getString(2));
-				}
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¡");
-			e.printStackTrace();
-		} finally {
-			// ¹Ø±ÕÁ¬½Ó
-			if (null != resultSet) {
-				try {
-					resultSet.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (null != preparedStatement) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != conn) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return user;
-	}
-
-}
-=======
 package com.learn.dao.impl;
 
 import java.sql.Connection;
@@ -107,8 +29,8 @@ public class UserDaoImpl implements UserDao {
 			// åŠ è½½æ•°æ®åº“é©±åŠ¨å™¨
 			Class.forName("com.mysql.jdbc.Driver");
 			// èŽ·å–è¿žæŽ¥
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "Gl556313");
-			String sql = new String("SELECT * FROM tb_user WHERE uname=? AND pwd = ?");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "");
+			String sql = new String("SELECT * FROM tb_user WHERE name=? AND pwd = ?");
 			pStatement = (PreparedStatement) conn.prepareStatement(sql);
 			// è®¾ç½®å ä½ç¬¦å‚æ•°
 			pStatement.setString(1, name);
@@ -154,5 +76,58 @@ public class UserDaoImpl implements UserDao {
 		return users;
 	}
 
+	public User checkUser(int uid) {
+		Connection conn = null;
+		PreparedStatement pStatement = null;
+		ResultSet resultSet = null;
+		User user = null;
+
+		try {
+			// åŠ è½½æ•°æ®åº“é©±åŠ¨å™¨
+			Class.forName("com.mysql.jdbc.Driver");
+			// èŽ·å–è¿žæŽ¥
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "");
+			String sql = new String("SELECT * FROM tb_user WHERE uid=?");
+			pStatement = (PreparedStatement) conn.prepareStatement(sql);
+			// è®¾ç½®å ä½ç¬¦å‚æ•°
+			pStatement.setInt(1, uid);
+			// èŽ·å–ç»“æžœé›†
+			resultSet = pStatement.executeQuery();
+			// å¤„ç†ç»“æžœé›†
+			if (null != resultSet) {
+				while (resultSet.next()) {
+					user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != resultSet) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != pStatement) {
+				try {
+					pStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != conn) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return user;
+	}
+
 }
->>>>>>> 7855f92e285d962128c4ce3585e9bbfdc96665df
