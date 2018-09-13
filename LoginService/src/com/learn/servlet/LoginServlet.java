@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.learn.pojo.User;
 import com.learn.service.impl.CheckUserServiceImpl;
@@ -46,6 +47,8 @@ import com.learn.service.impl.CheckUserServiceImpl;
  * 	解决使用请求转发会造成表单重复提交的问题；
  * 八、Cookie
  * 	使用重定向或用户发起的多次请求之间，请求数据需要传递或共享时；
+ * 九、session
+ * 	解决同一用户的不同请求之间的数据共享问题。
  */
 public class LoginServlet extends HttpServlet {
 	@Override
@@ -78,6 +81,10 @@ public class LoginServlet extends HttpServlet {
 			c.setMaxAge(3*24*3600);
 			c.setPath("/LoginService/ck");
 			resp.addCookie(c);
+			
+			// 将用户信息存入session
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
 			
 			// 重定向
 			resp.sendRedirect("main");
