@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * ½âÎö¿Í»§¶ËÇëÇóĞÅÏ¢
- * 1.»ñÈ¡ÇëÇóĞĞµÄĞÅÏ¢
- * 	getMethod()¡ª¡ª»ñÈ¡ÇëÇó·½Ê½
- * 	getSchema()¡ª¡ª»ñÈ¡Ğ­Òé£¨http¡¢https¡¢ftp£©
- * 	getProtocol()¡ª¡ª»ñÈ¡Ğ­Òé°æ±¾
- * 	getRequestURL()¡ª¡ª»ñÈ¡URL
- * 	getRequestURI()¡ª¡ª»ñÈ¡URI
- * 2.»ñÈ¡ÇëÇóÍ·µÄĞÅÏ¢£¨²»´æÔÚ²éÑ¯µÄkeyÊ±£¬²»»á±¨´í£¬·µ»Ønull£©
+ * è§£æå®¢æˆ·ç«¯è¯·æ±‚ä¿¡æ¯
+ * 1.è·å–è¯·æ±‚è¡Œçš„ä¿¡æ¯
+ * 	getMethod()â€”â€”è·å–è¯·æ±‚æ–¹å¼
+ * 	getSchema()â€”â€”è·å–åè®®ï¼ˆhttpã€httpsã€ftpï¼‰
+ * 	getProtocol()â€”â€”è·å–åè®®ç‰ˆæœ¬
+ * 	getRequestURL()â€”â€”è·å–URL
+ * 	getRequestURI()â€”â€”è·å–URI
+ * 2.è·å–è¯·æ±‚å¤´çš„ä¿¡æ¯ï¼ˆä¸å­˜åœ¨æŸ¥è¯¢çš„keyæ—¶ï¼Œä¸ä¼šæŠ¥é”™ï¼Œè¿”å›nullï¼‰
  * 	getHeader("key_name")
  * 	getHeaderNames()
- * 3.»ñÈ¡ÇëÇóÌåµÄĞÅÏ¢£¨²»´æÔÚ²éÑ¯µÄkeyÊ±£¬²»»á±¨´í£¬·µ»Ønull£©
+ * 3.è·å–è¯·æ±‚ä½“çš„ä¿¡æ¯ï¼ˆä¸å­˜åœ¨æŸ¥è¯¢çš„keyæ—¶ï¼Œä¸ä¼šæŠ¥é”™ï¼Œè¿”å›nullï¼‰
  * 	getParameter("key_name")
  * 	getParameterNames()
  */
@@ -28,32 +28,32 @@ public class RequestServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("RequestServlet");
 
-		// ÇëÇóĞĞµÄĞÅÏ¢
+		// è¯·æ±‚è¡Œçš„ä¿¡æ¯
 		System.out.println("Request method:" + req.getMethod());
 		System.out.println("Request URL:" + req.getRequestURL());
 		System.out.println("Request URI:" + req.getRequestURI());
 		System.out.println("Schema:" + req.getScheme());
 		System.out.println("Protocol:" + req.getProtocol());
 
-		// ÇëÇóÍ·µÄĞÅÏ¢
-		System.out.println("»ñÈ¡Ö¸¶¨¼üµÄÖµ:" + "Content-Type" + ":" + req.getHeader("Content-Type"));
+		// è¯·æ±‚å¤´çš„ä¿¡æ¯
+		System.out.println("è·å–æŒ‡å®šé”®çš„å€¼:" + "Content-Type" + ":" + req.getHeader("Content-Type"));
 		Enumeration<String> headerKeys = req.getHeaderNames();
 		while (headerKeys.hasMoreElements()) {
 			String headerName = (String) headerKeys.nextElement();
 			System.out.println(headerName + ":" + req.getHeader(headerName));
 		}
 
-		// ÇëÇóÌåµÄĞÅÏ¢
-		System.out.println("»ñÈ¡Ö¸¶¨¼üµÄÖµ:" + "uname:" + req.getParameter("uname"));
-		System.out.println("»ñÈ¡Ö¸¶¨¼üµÄÖµ:" + "un:" + req.getParameter("un"));
+		// è¯·æ±‚ä½“çš„ä¿¡æ¯
+		System.out.println("è·å–æŒ‡å®šé”®çš„å€¼:" + "uname:" + req.getParameter("uname"));
+		System.out.println("è·å–æŒ‡å®šé”®çš„å€¼:" + "un:" + req.getParameter("un"));
 		Enumeration<String> keys = req.getParameterNames();
 		while (keys.hasMoreElements()) {
 			String name = (String) keys.nextElement();
 			System.out.println(name + ":" + req.getParameter(name));
 
 		}
-		// ÏàÍ¬µÄ¼ü¶ÔÓ¦¶à¸öÈ¡ÖµÊ±
-		String[] favourites = req.getParameterValues("like");// ²»´æÔÚ¼üÖµÊ±²»»á±¨´í£¬·µ»Ønull£¬Òò´ËÏÂÎÄ²Ù×÷±ØĞëÅĞ¶ÏÊÇ·ñÎªnull
+		// ç›¸åŒçš„é”®å¯¹åº”å¤šä¸ªå–å€¼æ—¶
+		String[] favourites = req.getParameterValues("like");// ä¸å­˜åœ¨é”®å€¼æ—¶ä¸ä¼šæŠ¥é”™ï¼Œè¿”å›nullï¼Œå› æ­¤ä¸‹æ–‡æ“ä½œå¿…é¡»åˆ¤æ–­æ˜¯å¦ä¸ºnull
 		if (null != favourites) {
 			for (String string : favourites) {
 				System.out.println(string);

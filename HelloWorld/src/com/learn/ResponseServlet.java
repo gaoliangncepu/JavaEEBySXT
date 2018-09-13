@@ -8,29 +8,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Éú³ÉÏìÓ¦ĞÅÏ¢
- * 1.ÉèÖÃ±àÂë¸ñÊ½
+ * ç”Ÿæˆå“åº”ä¿¡æ¯
+ * 1.è®¾ç½®ç¼–ç æ ¼å¼
  */
 public class ResponseServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// ÉèÖÃ±àÂë¸ñÊ½
+		// è®¾ç½®ç¼–ç æ ¼å¼
 //		resp.setHeader("content-type", "text/html;charset=utf-8");
 		resp.setContentType("text/html;charset=utf-8");
 		// resp.setContentType("text/xml;charset=utf-8");
-		// resp.setContentType("text/plain;charset=utf-8");//ÆÕÍ¨ÎÄ±¾
+		// resp.setContentType("text/plain;charset=utf-8");//æ™®é€šæ–‡æœ¬
 
-		// ÉèÖÃÏìÓ¦ĞĞ¡ª¡ªÉèÖÃ×´Ì¬ÂëÓë×´Ì¬ÃèÊöĞÅÏ¢
+		// è®¾ç½®å“åº”è¡Œâ€”â€”è®¾ç½®çŠ¶æ€ç ä¸çŠ¶æ€æè¿°ä¿¡æ¯
 		// resp.sendError(404, "Not Found");
 
-		// ÉèÖÃÏìÓ¦Í·
+		// è®¾ç½®å“åº”å¤´
 		resp.setHeader("mouse", "band1");
-		resp.setHeader("mouse", "band2");// ÏàÍ¬¼üÖµ£¬ĞÂÖµÌæ»»¾ÉÖµ
+		resp.setHeader("mouse", "band2");// ç›¸åŒé”®å€¼ï¼Œæ–°å€¼æ›¿æ¢æ—§å€¼
 		resp.addHeader("keyboard", "band3");
-		resp.addHeader("keyboard", "band4");// ÏàÍ¬¼üÖµ£¬Ö±½ÓÌí¼Ó£¬²»»á¸²¸Ç
+		resp.addHeader("keyboard", "band4");// ç›¸åŒé”®å€¼ï¼Œç›´æ¥æ·»åŠ ï¼Œä¸ä¼šè¦†ç›–
 		
-		// ÉèÖÃÏìÓ¦Ìå
-		resp.getWriter().write("<b>¼Ó´ÖµÄÖĞÎÄ</b><br />");
+		// è®¾ç½®å“åº”ä½“
+		resp.getWriter().write("<b>åŠ ç²—çš„ä¸­æ–‡</b><br />");
 
 	}
 	

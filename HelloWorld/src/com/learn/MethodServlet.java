@@ -16,7 +16,7 @@ public class MethodServlet extends HttpServlet {
 		resp.getWriter().write("<b>this is methodServlet</b>");
 		System.out.println("service method run");
 
-		// 父类service方法中调用了doGet()和doPost()方法
+		// 鐖剁被service鏂规硶涓皟鐢ㄤ簡doGet()鍜宒oPost()鏂规硶
 		super.service(req, resp);
 	}
 
