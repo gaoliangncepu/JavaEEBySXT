@@ -6,4 +6,6 @@ import com.learn.pojo.User;
 
 public interface UserDao {
 	List<User> checkUser(String name, String pwd);
+	
+	User checkUser(int uid);
 }

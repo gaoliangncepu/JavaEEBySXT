@@ -18,4 +18,13 @@ public class CheckUserServiceImpl implements CheckUserService {
 		}
 	}
 
+	public User checkUser(String uid) {
+		User user = new UserDaoImpl().checkUser(Integer.parseInt(uid));
+		if (null != user) {
+			return user;
+		} else {
+			return null;
+		}
+	}
+
 }

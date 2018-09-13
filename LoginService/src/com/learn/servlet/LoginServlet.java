@@ -3,6 +3,7 @@ package com.learn.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +44,8 @@ import com.learn.service.impl.CheckUserServiceImpl;
  * 七、重定向
  * 	解决当前Servlet无法处理请求，需要将其转交给其他Servlet时；
  * 	解决使用请求转发会造成表单重复提交的问题；
+ * 八、Cookie
+ * 	使用重定向或用户发起的多次请求之间，请求数据需要传递或共享时；
  */
 public class LoginServlet extends HttpServlet {
 	@Override
@@ -69,6 +72,12 @@ public class LoginServlet extends HttpServlet {
 //			resp.getWriter().write("登录成功")
 //			req.getRequestDispatcher("main").forward(req, resp);
 //			return;
+			
+			// 使用Cookie存储用户首次成功登录时的信息，以实现定时免登陆
+			Cookie c = new Cookie("uid", user.getUid()+"");
+			c.setMaxAge(3*24*3600);
+			c.setPath("/LoginService/ck");
+			resp.addCookie(c);
 			
 			// 重定向
 			resp.sendRedirect("main");

@@ -29,8 +29,8 @@ public class UserDaoImpl implements UserDao {
 			// 加载数据库驱动器
 			Class.forName("com.mysql.jdbc.Driver");
 			// 获取连接
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "Gl556313");
-			String sql = new String("SELECT * FROM tb_user WHERE uname=? AND pwd = ?");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "");
+			String sql = new String("SELECT * FROM tb_user WHERE name=? AND pwd = ?");
 			pStatement = (PreparedStatement) conn.prepareStatement(sql);
 			// 设置占位符参数
 			pStatement.setString(1, name);
@@ -74,6 +74,60 @@ public class UserDaoImpl implements UserDao {
 		}
 
 		return users;
+	}
+
+	public User checkUser(int uid) {
+		Connection conn = null;
+		PreparedStatement pStatement = null;
+		ResultSet resultSet = null;
+		User user = null;
+
+		try {
+			// 加载数据库驱动器
+			Class.forName("com.mysql.jdbc.Driver");
+			// 获取连接
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/web_test", "root", "");
+			String sql = new String("SELECT * FROM tb_user WHERE uid=?");
+			pStatement = (PreparedStatement) conn.prepareStatement(sql);
+			// 设置占位符参数
+			pStatement.setInt(1, uid);
+			// 获取结果集
+			resultSet = pStatement.executeQuery();
+			// 处理结果集
+			if (null != resultSet) {
+				while (resultSet.next()) {
+					user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != resultSet) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != pStatement) {
+				try {
+					pStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != conn) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return user;
 	}
 
 }

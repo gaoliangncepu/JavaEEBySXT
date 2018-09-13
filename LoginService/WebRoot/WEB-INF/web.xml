@@ -45,6 +45,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CookieServlet</servlet-name>
-    <url-pattern>/cookie</url-pattern>
+    <url-pattern>/ck</url-pattern>
   </servlet-mapping>
 </web-app>
