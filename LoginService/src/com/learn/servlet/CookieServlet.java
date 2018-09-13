@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.learn.pojo.User;
+import com.learn.service.impl.CheckUserServiceImpl;
+
 /**
  * Servlet cookie缓存
  */
@@ -17,14 +20,29 @@ public class CookieServlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
 		
-		String uname = req.getParameter("uname");
-		String pwd = req.getParameter("pwd");
-		Cookie c1 = new Cookie("uname", uname);
-		Cookie c2 = new Cookie("pwd", pwd);
-		c1.setMaxAge(3*24*3600);
-		resp.addCookie(c1);
-		resp.addCookie(c2);
-		
+		User user = null;
+		Cookie[] cookies = req.getCookies();
+		if (null != cookies) {
+			for (Cookie cookie : cookies) {
+				if ("uid".equals(cookie.getName())) {
+					user = new CheckUserServiceImpl().checkUser(cookie.getValue());
+					break;
+				}
+			}
+			if (null != user) {
+				// Cookie校验成功，重定向到主页面
+				resp.sendRedirect("main");
+				return;
+			} else {
+				// Cookie校验不通过，重定向到登陆界面
+				req.getRequestDispatcher("login").forward(req, resp);
+				return;
+			}
+		} else {
+			// 没有存Cookie信息，转到登录验证Servlet
+			req.getRequestDispatcher("login").forward(req, resp);
+			return;
+		}
 	}
 
 }
