@@ -19,9 +19,12 @@ public class MainServlet extends HttpServlet {
 		resp.setContentType("text/html;charset=utf-8");
 		User user = (User)req.getSession().getAttribute("user");
 		
+		int nums = (int) this.getServletContext().getAttribute("nums");//不存在时返回null
+		
 		resp.getWriter().write("<hrml>");
 		resp.getWriter().write("<head>");
 		resp.getWriter().write("<h1>欢迎用户：" + user.getUserName() + "登录系统</h1>");
+		resp.getWriter().write("<p>累计登陆用户数:" + nums+"" + "</p>");
 		resp.getWriter().write("<hr />");
 		resp.getWriter().write("</head>");
 		resp.getWriter().write("<body>");

@@ -35,6 +35,11 @@ public class CookieServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.setAttribute("user", user);
 				
+				// 设置统计递增
+				int nums = (int) this.getServletContext().getAttribute("nums");
+				nums += 1;
+				this.getServletContext().setAttribute("nums", nums);
+				
 				// Cookie校验成功，重定向到主页面
 				resp.sendRedirect("main");
 				return;
