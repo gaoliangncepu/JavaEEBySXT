@@ -76,6 +76,11 @@ import com.learn.service.impl.CheckUserServiceImpl;
  * 	Enumeration<String> initParameterNames = sc.getInitParameterNames();
  * 	String path = sc.getRealPath(String relativePath);
  * 	InputStream resourceAsStream = sc.getResourceAsStream(String relativePath);
+ * 十一、ServletConfig
+ * 	获取当前Servlet在web.xml中的独立配置参数
+ * 	ServletConfig sc = this.getServletConfig();
+ * 	String value = sc.getInitParameter(String name)
+ * 	Enumeration<String> initParameterNames = sc.getInitParameterNames();
  */
 public class LoginServlet extends HttpServlet {
 	@Override
