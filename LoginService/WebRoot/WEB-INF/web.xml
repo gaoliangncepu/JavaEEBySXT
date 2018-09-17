@@ -47,4 +47,25 @@
     <servlet-name>CookieServlet</servlet-name>
     <url-pattern>/ck</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowServlet</display-name>
+    <servlet-name>ShowServlet</servlet-name>
+    <servlet-class>com.learn.servlet.ShowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowServlet</servlet-name>
+    <url-pattern>/show</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NumServlet</display-name>
+    <servlet-name>NumServlet</servlet-name>
+    <servlet-class>com.learn.servlet.NumServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NumServlet</servlet-name>
+    <url-pattern>/num</url-pattern>
+  </servlet-mapping>
 </web-app>

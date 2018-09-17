@@ -6,34 +6,40 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.learn.pojo.User;
 
 /**
- * Servlet 主界面
+ * Servlet implementation class ShowServlet
  */
-public class MainServlet extends HttpServlet {
+public class ShowServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
-		User user = (User)req.getSession().getAttribute("user");
 		
-		int nums = (int) this.getServletContext().getAttribute("nums");//不存在时返回null
+		HttpSession session = req.getSession();
+		User user = (User)req.getSession().getAttribute("user");
 		
 		resp.getWriter().write("<hrml>");
 		resp.getWriter().write("<head>");
 		resp.getWriter().write("<h1>欢迎用户：" + user.getUserName() + "登录系统</h1>");
-		resp.getWriter().write("<p>累计登陆用户数:" + nums+"" + "</p>");
 		resp.getWriter().write("<hr />");
 		resp.getWriter().write("</head>");
 		resp.getWriter().write("<body>");
-		resp.getWriter().write("<form action='show' method='get'>");
-		resp.getWriter().write("<input type='submit' value='查看用户信息' />");
-		resp.getWriter().write("</form>");
+		resp.getWriter().write("<table border='1'>");
+		resp.getWriter().write("<tr>");
+		resp.getWriter().write("<th>" + "用户名" + "</th>");
+		resp.getWriter().write("<td>" + user.getUserName() + "</td>");
+		resp.getWriter().write("</tr>");
+		resp.getWriter().write("<tr>");
+		resp.getWriter().write("<th>" + "密码" + "</th>");
+		resp.getWriter().write("<td>" + user.getPwd() + "</td>");
+		resp.getWriter().write("</tr>");
+		resp.getWriter().write("</table>");
 		resp.getWriter().write("</body>");
 		resp.getWriter().write("</hrml>");
-		
 	}
 
 }

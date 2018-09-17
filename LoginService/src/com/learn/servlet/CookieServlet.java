@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.learn.pojo.User;
 import com.learn.service.impl.CheckUserServiceImpl;
@@ -30,6 +31,15 @@ public class CookieServlet extends HttpServlet {
 				}
 			}
 			if (null != user) {
+				// 将用户信息存入session
+				HttpSession session = req.getSession();
+				session.setAttribute("user", user);
+				
+				// 设置统计递增
+				int nums = (int) this.getServletContext().getAttribute("nums");
+				nums += 1;
+				this.getServletContext().setAttribute("nums", nums);
+				
 				// Cookie校验成功，重定向到主页面
 				resp.sendRedirect("main");
 				return;
